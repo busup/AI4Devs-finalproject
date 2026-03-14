@@ -469,7 +469,7 @@ estructura + configuración + capacidad de ejecutar el sistema localmente.
 
 **Prompt 3:**
 
-**5. Diseños**
+**4. Diseños**
 
 Se han añadido **imágenes de referencia** en la carpeta `diseños/` y se ha utilizado el subdirectorio **`referencias-ui/`** para centralizar referencias de estilos y componentes UI. Para dar contexto del flujo de pantallas del producto, se **actualizó `diseños/README.md`** añadiendo la sección **"Flujo del diseño"**, que describe las cuatro pantallas principales (búsqueda de rutas, review de booking, pago, confirmación de booking) y dónde se encuentran las referencias visuales.
 
@@ -549,6 +549,84 @@ títulos ## y ###
 bloques de código para los nombres de directorio
 texto claro y orientado a desarrolladores
 ```
+
+**5. Creación de vistas del flujo (cuatro pantallas)**
+
+*(Ejecutado para implementar las cuatro pantallas del flujo como maquetas funcionales con navegación y fidelidad a las referencias de diseño.)*
+
+**Versión/Modelo utilizados:** Cursor Agent (Auto). Completar con el modelo utilizado en tu sesión (ej. Claude, GPT, etc.).
+
+**Prompt ejecutado para la creación de las vistas:**
+
+```
+**Rol:** Actúa como un **Senior Frontend Engineer** experto en Vue 3, Composition API, Vue Router, Pinia, Sass y Tailwind CSS. Tu tarea es implementar las **cuatro pantallas principales** del flujo de búsqueda y reserva de rutas del proyecto Route Searcher como **maquetas funcionales**: sin lógica de negocio real, pero con navegación entre pantallas y fidelidad visual a los diseños de referencia.
+
+**Contexto obligatorio:**
+
+- El **flujo de pantallas** y la descripción de cada una están documentados en **`diseños/README.md`**, sección **## Flujo del diseño**. Toma esa sección como fuente de verdad del orden y propósito de cada pantalla.
+- Las **imágenes de referencia** (mockups, wireframes) están en subdirectorios dentro de **`diseños/`**. Debes consultar esas carpetas para replicar layout, jerarquía visual y elementos de UI.
+- Los **estilos y tokens de diseño** (colores, tipografía, espaciados, componentes reutilizables) deben tomarse de los ficheros y recursos dentro de **`diseños/referencias-ui/`**. Crea o reutiliza estilos en el frontend para mantener coherencia con esas referencias.
+
+**Stack del proyecto (respetar):**
+
+- **Vue 3** (Composition API, `<script setup>`).
+- **Vite 4**, **Vue Router 4**, **Pinia**.
+- **Sass** y **Tailwind CSS 3** para estilos.
+- Estructura actual del frontend: `frontend/src/` con `views/`, `components/`, `router/`, `stores/`, `services/`, `assets/`.
+
+**Pantallas a implementar y referencias de diseño:**
+
+1. **Pantalla de búsqueda de rutas** (primera del flujo)
+   - **Referencias visuales:** `diseños/pantalla-busqueda-version-desktop/`, `diseños/pantalla-busqueda-version-mapa-mobile/`, `diseños/pantalla-busqueda-version-sin-mapa-mobile/`.
+   - **Referencias de estilos:** `diseños/referencias-ui/` (pantalla buscador / búsqueda).
+   - **Funcionalidad en maqueta:** formulario de búsqueda (origen, destino, fecha, solo ida / ida y vuelta) sin llamadas API; botón/acción que navegue a la pantalla de review.
+
+2. **Pantalla de review de booking**
+   - **Referencias visuales:** `diseños/pantalla-review-booking/`.
+   - **Referencias de estilos:** `diseños/referencias-ui/` (referencias "pantalla de review bookings").
+   - **Funcionalidad en maqueta:** mostrar resumen de la reserva (datos estáticos o Pinia); botón "Continuar" o "Ir a pago" que navegue a la pantalla de pago.
+
+3. **Pantalla de pago**
+   - **Referencias visuales:** `diseños/pantalla-pago-booking/`.
+   - **Referencias de estilos:** `diseños/referencias-ui/` (referencia "pantalla pago").
+   - **Funcionalidad en maqueta:** selector de método de pago y zona de datos de pago (todo estático); botón "Pagar" o "Confirmar" que navegue a la pantalla de confirmación.
+
+4. **Pantalla de confirmación de booking**
+   - **Referencias visuales:** `diseños/pantalla-confirmacion-booking/`.
+   - **Referencias de estilos:** `diseños/referencias-ui/` (referencias "pantalla confirmación").
+   - **Funcionalidad en maqueta:** mensaje de confirmación, bloque "descarga PDF" y "añadir al wallet" (solo UI), área "ruta en mapa" (placeholder); botón "Volver al inicio" que navegue a la pantalla de búsqueda.
+
+**Requisitos técnicos:**
+
+- **Vistas:** Crear una vista por pantalla en `frontend/src/views/` (p. ej. `SearchView.vue`, `ReviewBookingView.vue`, `PaymentView.vue`, `ConfirmationView.vue`).
+- **Componentes:** Extraer a `frontend/src/components/` los bloques reutilizables (cabecera, cards, formularios, botones, mapa placeholder). Subcarpetas si conviene (`components/search/`, `components/booking/`).
+- **Estilos:** Sass y/o Tailwind; variables en Sass o `tailwind.config.js` según tokens en `referencias-ui/`.
+- **Router:** Rutas para las cuatro pantallas: `/` o `/busqueda`, `/review`, `/pago`, `/confirmacion`. Entrada principal = pantalla de búsqueda.
+- **Navegación:** Transiciones con `router.push()` (o `router.replace()`). Sin lógica de negocio; opcional Pinia con datos mock para review/pago/confirmación.
+- **Responsive:** Variantes desktop y mobile según diseños; Tailwind breakpoints y/o Sass.
+
+**Reglas importantes:**
+
+- No eliminar ni sobrescribir funcionalidad existente del frontend no relacionada con este flujo. Integrar las nuevas vistas en la app actual.
+- No modificar el contenido de `diseños/` ni de `diseños/referencias-ui/`; solo leer como referencia.
+- Si un directorio de diseño referido no existe, implementar la pantalla basándose en **Flujo del diseño** en `diseños/README.md` y en el estilo del resto de referencias.
+
+**Entregable esperado:**
+
+- Cuatro pantallas implementadas y enlazadas por rutas.
+- Navegación funcional: Búsqueda → Review → Pago → Confirmación → (opcional) volver a Búsqueda.
+- Componentes y estilos organizados en los directorios correctos del frontend y alineados con las referencias de `diseños/` y `diseños/referencias-ui/`.
+- Código listo para conectar lógica de negocio y APIs en una fase posterior sin rehacer la estructura de vistas ni la navegación.
+```
+
+**Nota – Ajustes realizados en las distintas vistas:**
+
+- **Pantalla de búsqueda:** Tras la implementación inicial, se alineó con la referencia `diseños/referencias-ui/referencias pantalla buscador /app/page.tsx`: header con logo y nav (Find Routes, My Bookings, Company Pass), barra de progreso (pasos 1 Outbound, 2 Return, 3 Review), barra de búsqueda con toggle Round-trip/One-way y campos Origen, Destino, Fecha, Arrival Time Pref. (como botones), lista de rutas con cards seleccionables (Recommended, SELECTED) y panel de mapa (fondo emerald-900, grid, búsqueda Google Maps, línea de ruta, “Continue to Return”, zoom, Satellite, soporte).
+- **Pantalla de review:** Se alineó con `referencias pantalla de review bookings/app/page.tsx`: header propio (logo bus, Route Searcher, luna, avatar), indicador de paso “3 – Final Verification”, título “Review Your Booking”, dos cards lado a lado (Outbound Journey y Return Journey) con fecha, Departure/Arrival, ruta, parada con icono y “X min walk”, bloque Passenger Information y Payment Method (Corporate Smartpass), footer fijo con Grand Total $0.00, badge “Fully Covered by Company”, “Go Back & Edit” y “Confirm & Book Seat”, y botón de ayuda flotante.
+- **Pantalla de pago:** Se alineó con `referencia pantalla pago/app/page.tsx`: header igual que review, paso “4 – Payment”, “Complete Your Payment”, grid con columna izquierda (Select Payment Method con Credit/Debit, Company Credits, Corporate Smartpass, PayPal; Card Details cuando aplica) y columna derecha (Order Summary sticky con desglose, Total $20.00, Promo code, badge SSL), sección Terms & Conditions con tres checkboxes, footer fijo “Amount to Pay” $20.00, “Back to Review” y “Pay Now”, y botón de ayuda.
+- **Pantalla de confirmación:** Se alineó con `referencias pantalla confirmacion` (componente `BookingConfirmation`): header móvil (solo md:hidden) con “Confirmation”, bloque de éxito con check y “Booking Confirmed!”, grid con ticket card (cabecera verde Pass Status / Employee ID, QR en bloque emerald, referencia, datos Route ID / Seat / Date / Passenger, efecto notch, tramos Outbound y Return con badges) y columna de acciones (Calendar, PDF Ticket, Add to Wallet, Back to Dashboard, Route Summary con mapa placeholder y línea SVG), y pie con Booking ID y “Need help?”.
+
+En todas las vistas se mantuvieron los colores y tipografía de las referencias (emerald, neutral) y la navegación del flujo: Búsqueda → Review → Pago → Confirmación → Volver a Búsqueda.
 
 ### **2.5. Seguridad**
 

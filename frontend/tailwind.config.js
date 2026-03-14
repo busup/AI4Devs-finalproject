@@ -5,7 +5,17 @@ export default {
     './src/**/*.{vue,js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: 'var(--color-primary)',
+          foreground: 'var(--color-primary-foreground)',
+        },
+      },
+      borderRadius: {
+        card: 'var(--radius)',
+      },
+    },
   },
   plugins: [],
 }

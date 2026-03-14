@@ -1,3 +1,16 @@
+// Design tokens (referencias-ui)
+:root {
+  --color-background: #fafafa;
+  --color-foreground: #171717;
+  --color-card: #ffffff;
+  --color-primary: #16a34a;
+  --color-primary-foreground: #ffffff;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-border: #e4e4e7;
+  --radius: 0.625rem;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
