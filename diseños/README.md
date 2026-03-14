@@ -27,3 +27,73 @@ Puedes añadir:
 
 - El frontend (`frontend/`) debe implementar las pantallas y flujos reflejados en estos diseños.
 - Consulta este directorio al implementar nuevas vistas o componentes para mantener coherencia visual y de flujo con el producto definido.
+
+## Flujo del diseño
+
+El flujo de la aplicación está compuesto por **cuatro pantallas principales** que representan el proceso completo de búsqueda y reserva de rutas.
+
+### 1. Pantalla de búsqueda de rutas
+
+Es la primera pantalla del flujo. Aquí el usuario puede buscar rutas disponibles.
+
+**Funcionalidades principales:**
+
+- Búsqueda de rutas
+- Opción de buscar solo ida
+- Opción de buscar ida y vuelta
+
+**Versiones de diseño disponibles:**
+
+- **Versión Desktop**  
+  Referencias en: `pantalla-busqueda-version-desktop`
+
+- **Versión Mobile** (dos variantes):
+  - **Mobile con mapa** — Referencias en: `pantalla-busqueda-version-mapa-mobile`
+  - **Mobile sin mapa** — Referencias en: `pantalla-busqueda-version-sin-mapa-mobile`
+
+**Referencias de estilos para esta pantalla:**  
+`referencias pantalla buscador`
+
+---
+
+### 2. Pantalla de review de booking
+
+Después de seleccionar las rutas, el usuario pasa a la pantalla de review, donde puede revisar los datos de su reserva antes de continuar.
+
+- **Diseños disponibles en:** `pantalla-confimacion-booking`
+- **Referencias de estilos:** `referencias pantalla de review bookings`
+
+---
+
+### 3. Pantalla de pago
+
+En esta pantalla el usuario selecciona el método de pago para completar la reserva.
+
+- **Diseños disponibles en:** `pantalla-pago-booking`
+- **Referencias de estilos:** `referencia pantalla pago`
+
+---
+
+### 4. Pantalla de confirmación de booking
+
+Una vez completado el pago, el usuario llega a la pantalla de confirmación.
+
+**Funcionalidades de esta pantalla:**
+
+- Confirmación de la reserva
+- Descarga del ticket en PDF
+- Opción de añadir el ticket al wallet
+- Visualización de la ruta del viaje en un mapa
+
+- **Diseños disponibles en:** `pantalla-review-booking`
+- **Referencias de estilos:** `referencias pantalla confirmacion`
+
+---
+
+### Objetivo de esta documentación
+
+Este flujo sirve para:
+
+- Guiar la implementación del frontend
+- Identificar las pantallas del producto
+- Localizar rápidamente las referencias visuales dentro del directorio `diseños/`

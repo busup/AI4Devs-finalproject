@@ -469,6 +469,87 @@ estructura + configuración + capacidad de ejecutar el sistema localmente.
 
 **Prompt 3:**
 
+**5. Diseños**
+
+Se han añadido **imágenes de referencia** en la carpeta `diseños/` y se ha utilizado el subdirectorio **`referencias-ui/`** para centralizar referencias de estilos y componentes UI. Para dar contexto del flujo de pantallas del producto, se **actualizó `diseños/README.md`** añadiendo la sección **"Flujo del diseño"**, que describe las cuatro pantallas principales (búsqueda de rutas, review de booking, pago, confirmación de booking) y dónde se encuentran las referencias visuales.
+
+**Prompt ejecutado para actualizar el README de diseños:**
+
+```
+Rol
+Actúa como un Senior Frontend Engineer encargado de mantener la documentación de diseño del proyecto.
+Debes actualizar el archivo diseños/README.md añadiendo una nueva sección llamada:
+Flujo del diseño
+Esta sección debe describir el flujo completo de pantallas del producto y referenciar los directorios donde se encuentran los diseños y las referencias visuales.
+
+Reglas importantes
+No sobrescribir el README completo.
+Solo añadir la nueva sección "Flujo del diseño".
+No modificar otros apartados existentes.
+No modificar ni mover directorios dentro de /diseños.
+Solo documentar las referencias existentes.
+
+Contenido que debe añadirse al README
+Crear una sección estructurada como documentación de producto.
+Flujo del diseño
+El flujo de la aplicación está compuesto por cuatro pantallas principales que representan el proceso completo de búsqueda y reserva de rutas.
+1. Pantalla de búsqueda de rutas
+Es la primera pantalla del flujo.
+Aquí el usuario puede buscar rutas disponibles.
+Funcionalidades principales:
+búsqueda de rutas
+opción de buscar solo ida
+opción de buscar ida y vuelta
+Versiones de diseño disponibles:
+Versión Desktop
+Referencias en:
+pantalla-busqueda-version-desktop
+Versión Mobile
+Existen dos variantes:
+Mobile con mapa
+Referencias en:
+pantalla-busqueda-version-mapa-mobile
+Mobile sin mapa
+Referencias en:
+pantalla-busqueda-version-sin-mapa-mobile
+Referencias de estilos para esta pantalla:
+referencias pantalla buscador
+2. Pantalla de review de booking
+Después de seleccionar las rutas, el usuario pasa a la pantalla de review, donde puede revisar los datos de su reserva antes de continuar.
+Diseños disponibles en:
+pantalla-confimacion-booking
+Referencias de estilos:
+referencias pantalla de review bookings
+3. Pantalla de pago
+En esta pantalla el usuario selecciona el método de pago para completar la reserva.
+Diseños disponibles en:
+pantalla-pago-booking
+Referencias de estilos:
+referencia pantalla pago
+4. Pantalla de confirmación de booking
+Una vez completado el pago, el usuario llega a la pantalla de confirmación.
+Funcionalidades de esta pantalla:
+confirmación de la reserva
+descarga del ticket en PDF
+opción de añadir el ticket al wallet
+visualización de la ruta del viaje en un mapa
+Diseños disponibles en:
+pantalla-review-booking
+Referencias de estilos:
+referencias pantalla confirmacion
+Objetivo de esta documentación
+Este flujo sirve para:
+guiar la implementación del frontend
+identificar las pantallas del producto
+localizar rápidamente las referencias visuales dentro del directorio diseños
+Formato esperado
+El README debe usar:
+Markdown
+títulos ## y ###
+bloques de código para los nombres de directorio
+texto claro y orientado a desarrolladores
+```
+
 ### **2.5. Seguridad**
 
 **Prompt 1:**
