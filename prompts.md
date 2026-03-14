@@ -212,7 +212,258 @@ Output Requirements:
 
 ### **2.4. Infraestructura y despliegue**
 
-**Prompt 1:**
+**Prompt 1:** *(Ejecutado para montar la estructura inicial del monorepo — frontend, microservicios, gateway, Docker.)*
+
+**Versión/Modelo utilizados:** Cursor Agent (Auto). Modelo de la sesión: completar con el modelo utilizado en tu entorno (ej. Claude, GPT, etc.).
+
+```
+Rol
+Actúa como un Staff Software Engineer encargado de bootstrapear la arquitectura inicial de un sistema basado en microservicios.
+Tu tarea es generar el scaffolding completo del monorepo del proyecto "Route Searcher", alineado estrictamente con la documentación técnica existente en el repositorio.
+El objetivo es obtener un repositorio listo para desarrollo local, que cualquier desarrollador pueda clonar y ejecutar.
+El foco debe estar en:
+estructura
+configuración
+consistencia
+ejecutabilidad local
+NO en lógica de negocio.
+
+Reglas críticas de generación (MUY IMPORTANTE)
+No sobrescribir archivos existentes.
+Si un archivo ya existe en el repositorio:
+NO modificarlo
+NO regenerarlo
+NO eliminarlo
+No reemplazar directorios existentes.
+Si un directorio ya existe con el mismo nombre que uno definido en este prompt:
+usar el directorio existente
+generar únicamente archivos faltantes dentro de él
+nunca eliminar contenido existente
+Solo crear archivos o directorios si no existen.
+No alterar documentación existente dentro de /docs.
+No alterar archivos dentro de /diseños.
+Este directorio contiene referencias visuales del producto y nunca debe ser modificado automáticamente.
+Si hay conflicto entre lo existente y lo definido aquí:
+priorizar lo existente
+documentar la diferencia en comentarios si es necesario
+
+Contexto
+Dentro del repositorio existen los siguientes documentos que deben considerarse fuente de verdad:
+docs/1_descripcion_general.md
+docs/2_Arquitectura_del_Sistema.md
+docs/3_Modelo_de_Datos.md
+docs/4_especificacion_api.md
+Estos documentos definen:
+arquitectura del sistema
+microservicios
+endpoints
+contratos API
+modelo de datos
+stack tecnológico
+flujo de instalación
+La estructura generada debe alinearse completamente con estos documentos.
+
+Objetivo
+Generar el scaffolding completo del monorepo, incluyendo:
+frontend
+microservicios
+API gateway
+configuración docker
+variables de entorno
+esquemas base
+endpoints placeholder
+El sistema debe poder ejecutarse localmente con:
+docker compose up
+y levantar todos los servicios.
+
+Estructura del monorepo
+La estructura objetivo del repositorio es:
+route-searcher/
+frontend/
+services/
+routes-service/
+sites-service/
+booking-service/
+rates-service/
+search-service/
+gateway/
+infra/
+docs/
+diseños/
+docker-compose.yml
+README.md
+
+Directorio diseños
+Debe existir un directorio en la raíz llamado:
+diseños/
+Este directorio contendrá referencias visuales del producto utilizadas para guiar el desarrollo del frontend.
+Ejemplo de organización:
+diseños/
+mobile/
+desktop/
+wireframes/
+ux-flows/
+referencias-ui/
+Crear también:
+diseños/README.md
+explicando:
+propósito del directorio
+cómo organizar los diseños
+cómo se relaciona con el desarrollo del frontend
+
+Frontend
+Stack obligatorio:
+Vue 3
+Composition API
+Vite 4
+Vue Router 4
+Pinia
+Sass
+Tailwind CSS 3
+Estructura esperada:
+frontend/
+src/
+components/
+views/
+router/
+stores/
+services/
+assets/
+public/
+.env.example
+vite.config.ts
+tailwind.config.js
+postcss.config.js
+package.json
+Variables de entorno:
+VITE_API_BASE_URL=http://localhost:8080/api/v1
+Crear:
+una página de ejemplo
+un servicio API básico
+llamada a un endpoint placeholder
+
+Microservicios
+Generar los siguientes servicios.
+Routes Service
+Stack:
+Laravel 10
+PHP 8.1
+Responsabilidad:
+líneas
+paradas
+horarios
+Debe incluir:
+routes/api.php
+app/Models
+app/Http/Controllers
+database/migrations
+Dockerfile
+.env.example
+
+Sites Service
+Stack:
+Node.js
+NestJS
+Responsabilidad:
+sitios corporativos
+configuración
+usuarios/pasajeros
+
+Booking Service
+Stack:
+Node.js
+NestJS
+Responsabilidad:
+reservas
+disponibilidad
+
+Rates Service
+Elegir uno de los siguientes stacks y documentarlo:
+Go
+o
+Python (FastAPI)
+Responsabilidad:
+reglas de tarifas
+cálculo de precios
+
+Search Service
+Stack:
+Go
+PostGIS
+Responsabilidad:
+read model geoespacial
+búsqueda de rutas cercanas
+
+API Gateway
+Crear un gateway para desarrollo local.
+Puede implementarse con:
+Nginx
+Debe enrutar:
+/api/v1/search    -> search-service
+/api/v1/sites     -> sites-service
+/api/v1/routes    -> routes-service
+/api/v1/bookings  -> booking-service
+/api/v1/rates     -> rates-service
+Puerto expuesto:
+8080
+
+Orquestación local
+Generar:
+docker-compose.yml
+que levante:
+frontend
+gateway
+todos los microservicios
+bases de datos por servicio
+PostGIS para search-service
+
+Variables de entorno
+Cada servicio debe incluir:
+.env.example
+con variables como:
+DB_HOST
+DB_PORT
+DB_USER
+DB_PASSWORD
+SERVICE_PORT
+
+Consistencia
+Asegurar coherencia entre:
+puertos
+nombres de servicio
+rutas API
+variables de entorno
+docker-compose
+
+README raíz
+Debe incluir:
+Descripción del proyecto
+Arquitectura basada en microservicios para búsqueda y reserva de rutas.
+Requisitos
+Docker
+Docker Compose
+Node.js
+PHP 8.1
+Go (si aplica)
+Instalación
+git clone
+cd route-searcher
+docker compose up
+Servicios
+Tabla con:
+servicio
+puerto
+responsabilidad
+
+Restricciones
+No implementar:
+lógica de negocio completa
+integraciones externas
+optimizaciones avanzadas
+Usar placeholders cuando sea necesario.
+El foco es:
+estructura + configuración + capacidad de ejecutar el sistema localmente.
+```
 
 **Prompt 2:**
 

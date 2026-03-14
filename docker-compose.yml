@@ -1,0 +1,199 @@
+# Route Searcher - Monorepo local orchestration
+# Run: docker compose up
+# API Gateway: http://localhost:8080
+# Frontend dev: http://localhost:5173 (when frontend service is running)
+
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - routes-service
+      - sites-service
+      - booking-service
+      - rates-service
+      - search-service
+    networks:
+      - app
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8080/api/v1
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
+    networks:
+      - app
+
+  routes-service:
+    build: ./services/routes-service
+    expose:
+      - "8000"
+    environment:
+      APP_KEY: base64:VGVzdEtleUZvckRldmVsb3BtZW50T25seTEyMzQ1Njc4
+      DB_HOST: routes-db
+      DB_PORT: 3306
+      DB_DATABASE: routes
+      DB_USERNAME: routes
+      DB_PASSWORD: routes_secret
+      SERVICE_PORT: 8000
+    depends_on:
+      routes-db:
+        condition: service_healthy
+    networks:
+      - app
+
+  routes-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: routes
+      MYSQL_USER: routes
+      MYSQL_PASSWORD: routes_secret
+      MYSQL_ROOT_PASSWORD: root_secret
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app
+
+  sites-service:
+    build: ./services/sites-service
+    expose:
+      - "3001"
+    environment:
+      DB_HOST: sites-db
+      DB_PORT: 3306
+      DB_USER: sites
+      DB_PASSWORD: sites_secret
+      SERVICE_PORT: 3001
+    depends_on:
+      sites-db:
+        condition: service_healthy
+    networks:
+      - app
+
+  sites-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: sites
+      MYSQL_USER: sites
+      MYSQL_PASSWORD: sites_secret
+      MYSQL_ROOT_PASSWORD: root_secret
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app
+
+  booking-service:
+    build: ./services/booking-service
+    expose:
+      - "3002"
+    environment:
+      DB_HOST: booking-db
+      DB_PORT: 5432
+      DB_USER: booking
+      DB_PASSWORD: booking_secret
+      SERVICE_PORT: 3002
+    depends_on:
+      booking-db:
+        condition: service_healthy
+    networks:
+      - app
+
+  booking-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: booking
+      POSTGRES_USER: booking
+      POSTGRES_PASSWORD: booking_secret
+    expose:
+      - "5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U booking"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app
+
+  rates-service:
+    build: ./services/rates-service
+    expose:
+      - "3005"
+    environment:
+      DB_HOST: rates-db
+      DB_PORT: 5432
+      DB_USER: rates
+      DB_PASSWORD: rates_secret
+      SERVICE_PORT: 3005
+    depends_on:
+      rates-db:
+        condition: service_healthy
+    networks:
+      - app
+
+  rates-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: rates
+      POSTGRES_USER: rates
+      POSTGRES_PASSWORD: rates_secret
+    expose:
+      - "5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rates"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app
+
+  search-service:
+    build: ./services/search-service
+    expose:
+      - "3004"
+    environment:
+      DB_HOST: search-db
+      DB_PORT: 5432
+      DB_USER: search
+      DB_PASSWORD: search_secret
+      SERVICE_PORT: 3004
+    depends_on:
+      search-db:
+        condition: service_healthy
+    networks:
+      - app
+
+  search-db:
+    image: postgis/postgis:15-3.3-alpine
+    environment:
+      POSTGRES_DB: search
+      POSTGRES_USER: search
+      POSTGRES_PASSWORD: search_secret
+    expose:
+      - "5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U search"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
