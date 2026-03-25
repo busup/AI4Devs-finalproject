@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RouteManagement\Domain\Model;
 
-use RouteManagement\Domain\Event\StopCreated;
+use RouteManagement\Domain\Event\{StopApproved, StopCreated};
 use RouteManagement\Domain\Model\ValueObject\{ApprovalStatus, Coordinates, StopId, Timezone};
 
 final class Stop
@@ -35,10 +35,14 @@ final class Stop
         ?array      $metadata = null,
     ): self {
         $now = new \DateTimeImmutable();
-        return new self(
+        $stop = new self(
             $id, $name, $address, $location, $timezone,
             $isAccessible, ApprovalStatus::Pending, $metadata, $now, $now,
         );
+
+        $stop->domainEvents[] = new StopCreated($id, $location);
+
+        return $stop;
     }
 
     /** Reconstitution from persistence — no domain events emitted. */
@@ -68,7 +72,7 @@ final class Stop
         }
         $this->approvalStatus = ApprovalStatus::Approved;
         $this->updatedAt = new \DateTimeImmutable();
-        $this->domainEvents[] = new StopCreated($this->id, $this->location);
+        $this->domainEvents[] = new StopApproved($this->id, $this->location);
     }
 
     public function reject(): void

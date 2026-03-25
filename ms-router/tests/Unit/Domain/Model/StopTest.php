@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-use RouteManagement\Domain\Event\StopCreated;
+use RouteManagement\Domain\Event\{StopApproved, StopCreated};
 use RouteManagement\Domain\Model\Stop;
 use RouteManagement\Domain\Model\ValueObject\{
     ApprovalStatus, Coordinates, StopId, Timezone
@@ -30,7 +30,9 @@ test('it creates a stop correctly and emits StopCreated event', function () {
         ->and($stop->location()->lat)->toBe(41.3851);
 
     $events = $stop->pullDomainEvents();
-    expect($events)->toHaveCount(0); // Should be 0 on create, events added on actions (like approve)
+    expect($events)->toHaveCount(1)
+        ->and($events[0])->toBeInstanceOf(StopCreated::class)
+        ->and($events[0]->aggregateId())->toBe($uuid);
 });
 
 test('it approves a pending stop', function () {
@@ -42,10 +44,15 @@ test('it approves a pending stop', function () {
         new Timezone('Europe/Madrid'),
         true
     );
+    $stop->pullDomainEvents(); // Clear StopCreated
 
     expect($stop->approvalStatus())->toBe(ApprovalStatus::Pending);
 
     $stop->approve();
 
     expect($stop->approvalStatus())->toBe(ApprovalStatus::Approved);
+    
+    $events = $stop->pullDomainEvents();
+    expect($events)->toHaveCount(1)
+        ->and($events[0])->toBeInstanceOf(StopApproved::class);
 });

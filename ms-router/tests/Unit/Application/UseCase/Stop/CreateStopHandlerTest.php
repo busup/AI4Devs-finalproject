@@ -17,7 +17,9 @@ test('it handles stop creation successfully', function () {
     $outbox = m::mock(OutboxEventStore::class);
 
     $stopRepository->shouldReceive('save')->once();
-    $outbox->shouldReceive('store')->once()->with([]); // No events on creation, only on approval in this implementation
+    $outbox->shouldReceive('store')->once()->withArgs(function ($events) {
+        return count($events) === 1 && $events[0] instanceof \RouteManagement\Domain\Event\StopCreated;
+    });
 
     $handler = new CreateStopHandler($stopRepository, $outbox);
 
