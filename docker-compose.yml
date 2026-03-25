@@ -9,6 +9,8 @@
 #   mysql                 — MySQL 8.0 with both microservice DBs
 #   flyway-router         — Applies ms-router migrations
 #   flyway-planifications — Applies ms-planifications migrations
+#   ms-router             — Laravel 11 / PHP 8.3 (port 8001)
+#   ms-planifications     — Laravel 11 / PHP 8.3 (port 8002)
 # =============================================================
 
 services:
@@ -50,6 +52,8 @@ services:
       timeout: 5s
       retries: 20
       start_period: 15s
+    networks:
+      - route_searcher_net
 
   # -----------------------------------------------------------
   # Flyway — ms-router
@@ -72,6 +76,8 @@ services:
       - -baselineOnMigrate=true
     volumes:
       - ./ms-router/src/main/resources/db/migration:/flyway/sql:ro
+    networks:
+      - route_searcher_net
 
   # -----------------------------------------------------------
   # Flyway — ms-planifications
@@ -93,6 +99,92 @@ services:
       - -baselineOnMigrate=true
     volumes:
       - ./ms-planifications/src/main/resources/db/migration:/flyway/sql:ro
+    networks:
+      - route_searcher_net
+
+  # -----------------------------------------------------------
+  # ms-router — Laravel 11 / PHP 8.3
+  # Geographic source of truth: Stops, Routes, Snapshots
+  # Port on host: MS_ROUTER_PORT (default 8001)
+  # -----------------------------------------------------------
+  ms-router:
+    build:
+      context: ./ms-router
+      dockerfile: ../docker/ms-router/Dockerfile
+    container_name: ms_router_app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      flyway-router:
+        condition: service_completed_successfully
+    env_file: .env
+    environment:
+      APP_NAME: "ms-router"
+      APP_ENV: "${APP_ENV:-local}"
+      APP_DEBUG: "${APP_DEBUG:-true}"
+      APP_KEY: "${MS_ROUTER_APP_KEY}"
+      APP_URL: "http://localhost:${MS_ROUTER_PORT:-8001}"
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: "${ROUTER_DB_NAME}"
+      DB_USERNAME: "${ROUTER_DB_USER}"
+      DB_PASSWORD: "${ROUTER_DB_PASSWORD}"
+      PLANIFICATIONS_SERVICE_URL: "http://ms-planifications:8000"
+    ports:
+      - "${MS_ROUTER_PORT:-8001}:8000"
+    volumes:
+      # Mount source for live-reload during development.
+      - ./ms-router:/var/www/html
+      # Named volume for vendor dir: avoids host overwriting the
+      # container-built vendor on every bind-mount refresh.
+      - ms_router_vendor:/var/www/html/vendor
+    networks:
+      - route_searcher_net
+
+  # -----------------------------------------------------------
+  # ms-planifications — Laravel 11 / PHP 8.3
+  # Expeditions, planifications and concrete service instances
+  # Port on host: MS_PLANIFICATIONS_PORT (default 8002)
+  # -----------------------------------------------------------
+  ms-planifications:
+    build:
+      context: ./ms-planifications
+      dockerfile: ../docker/ms-planifications/Dockerfile
+    container_name: ms_planifications_app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      flyway-planifications:
+        condition: service_completed_successfully
+      ms-router:
+        condition: service_started
+    env_file: .env
+    environment:
+      APP_NAME: "ms-planifications"
+      APP_ENV: "${APP_ENV:-local}"
+      APP_DEBUG: "${APP_DEBUG:-true}"
+      APP_KEY: "${MS_PLANIFICATIONS_APP_KEY}"
+      APP_URL: "http://localhost:${MS_PLANIFICATIONS_PORT:-8002}"
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: "${PLANIFICATIONS_DB_NAME}"
+      DB_USERNAME: "${PLANIFICATIONS_DB_USER}"
+      DB_PASSWORD: "${PLANIFICATIONS_DB_PASSWORD}"
+      # ms-planifications calls ms-router to validate RouteSnapshot refs
+      ROUTER_SERVICE_URL: "http://ms-router:8000"
+    ports:
+      - "${MS_PLANIFICATIONS_PORT:-8002}:8000"
+    volumes:
+      - ./ms-planifications:/var/www/html
+      - ms_planifications_vendor:/var/www/html/vendor
+    networks:
+      - route_searcher_net
 
 # -------------------------------------------------------------
 # Volumes
@@ -100,3 +192,14 @@ services:
 volumes:
   mysql_data:
     driver: local
+  ms_router_vendor:
+    driver: local
+  ms_planifications_vendor:
+    driver: local
+
+# -------------------------------------------------------------
+# Networks
+# -------------------------------------------------------------
+networks:
+  route_searcher_net:
+    driver: bridge

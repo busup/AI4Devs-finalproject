@@ -1,0 +1,37 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PlanificationManagement\Infrastructure\Http;
+
+use Illuminate\Support\Facades\Http;
+use PlanificationManagement\Domain\Model\ValueObject\RouteSnapshotRefId;
+use PlanificationManagement\Domain\Service\RouteSnapshotValidator;
+
+final class HttpRouteSnapshotValidator implements RouteSnapshotValidator
+{
+    private string $routerUrl;
+
+    public function __construct()
+    {
+        $this->routerUrl = rtrim(env('ROUTER_SERVICE_URL', 'http://ms-router:80'), '/');
+    }
+
+    public function validate(RouteSnapshotRefId $refId): void
+    {
+        // Peticion HTTP a ms-router para validar si el RouteSnapshot (published) final existe.
+        // Endpoint supuesto en ms-router: GET /api/v1/routes/snapshots/{id}
+        
+        $response = Http::timeout(3)->get("{$this->routerUrl}/api/v1/routes/snapshots/{$refId->value}");
+
+        if ($response->notFound()) {
+            throw new \DomainException("RouteSnapshotRefId {$refId->value} no existe en ms-router.");
+        }
+
+        if ($response->failed()) {
+            throw new \RuntimeException("No se pudo contactar con ms-router o devolvió error.");
+        }
+        
+        // Petición exitosa significa que sí existe.
+    }
+}
