@@ -10,7 +10,7 @@ use PlanificationManagement\Application\UseCase\Expedition\CreateExpedition\{Cre
 use PlanificationManagement\Application\UseCase\Expedition\ActivateExpedition\{ActivateExpeditionCommand, ActivateExpeditionHandler};
 use PlanificationManagement\Application\UseCase\Expedition\GetExpedition\{GetExpeditionQuery, GetExpeditionHandler};
 
-final class ExpeditionController extends Controller
+final class ExpeditionController
 {
     public function store(Request $request, CreateExpeditionHandler $handler): JsonResponse
     {

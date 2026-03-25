@@ -7,7 +7,7 @@ namespace RouteManagement\Infrastructure\Outbox;
 use Illuminate\Support\Str;
 use RouteManagement\Infrastructure\Persistence\Eloquent\EloquentOutboxEvent;
 
-final class OutboxEventStore
+class OutboxEventStore
 {
     /**
      * @param object[] $domainEvents Array of Domain Event objects with toPayload() method

@@ -43,6 +43,11 @@ final readonly class DaysOfWeek
             throw new \InvalidArgumentException("Unknown day name: {$dayName}");
         }
 
-        return ($this->bitmask & $dayMapping[$dayKey]) === $dayMapping[$dayKey];
+        return $this->includes($dayMapping[$dayKey]);
+    }
+
+    public function includes(int $dayBit): bool
+    {
+        return ($this->bitmask & $dayBit) === $dayBit;
     }
 }

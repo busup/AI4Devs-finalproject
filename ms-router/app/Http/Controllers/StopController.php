@@ -10,7 +10,7 @@ use RouteManagement\Application\UseCase\Stop\CreateStop\{CreateStopCommand, Crea
 use RouteManagement\Application\UseCase\Stop\ApproveStop\{ApproveStopCommand, ApproveStopHandler};
 use RouteManagement\Application\UseCase\Stop\FindNearbyStops\{FindNearbyStopsQuery, FindNearbyStopsHandler};
 
-final class StopController extends Controller
+final class StopController
 {
     public function store(Request $request, CreateStopHandler $handler): JsonResponse
     {

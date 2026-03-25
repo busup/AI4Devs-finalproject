@@ -52,6 +52,11 @@ final class EloquentStopRepository implements StopRepository
         );
     }
 
+    public function delete(StopId $id): void
+    {
+        EloquentStop::destroy($id->value);
+    }
+
     private function toDomain(EloquentStop $m): Stop
     {
         return Stop::reconstitute(
@@ -64,7 +69,8 @@ final class EloquentStopRepository implements StopRepository
             ApprovalStatus::from($m->approval_status),
             $m->metadata,
             $m->created_at->toImmutable(),
-            $m->updated_at->toImmutable()
+            $m->updated_at->toImmutable(),
+            $m->deleted_at?->toImmutable()
         );
     }
 }

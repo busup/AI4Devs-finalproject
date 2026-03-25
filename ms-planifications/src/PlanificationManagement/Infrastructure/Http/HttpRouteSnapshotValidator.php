@@ -14,15 +14,15 @@ final class HttpRouteSnapshotValidator implements RouteSnapshotValidator
 
     public function __construct()
     {
+        // En un entorno real, esto vendría de config('services.router.url')
         $this->routerUrl = rtrim(env('ROUTER_SERVICE_URL', 'http://ms-router:80'), '/');
     }
 
     public function validate(RouteSnapshotRefId $refId): void
     {
-        // Peticion HTTP a ms-router para validar si el RouteSnapshot (published) final existe.
-        // Endpoint supuesto en ms-router: GET /api/v1/routes/snapshots/{id}
-        
-        $response = Http::timeout(3)->get("{$this->routerUrl}/api/v1/routes/snapshots/{$refId->value}");
+        $response = Http::timeout(3)
+            ->withHeaders(['Accept' => 'application/json'])
+            ->get("{$this->routerUrl}/api/v1/routes/snapshots/{$refId->value}");
 
         if ($response->notFound()) {
             throw new \DomainException("RouteSnapshotRefId {$refId->value} no existe en ms-router.");
@@ -31,7 +31,5 @@ final class HttpRouteSnapshotValidator implements RouteSnapshotValidator
         if ($response->failed()) {
             throw new \RuntimeException("No se pudo contactar con ms-router o devolvió error.");
         }
-        
-        // Petición exitosa significa que sí existe.
     }
 }

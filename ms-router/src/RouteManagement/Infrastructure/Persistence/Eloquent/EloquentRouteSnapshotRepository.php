@@ -6,7 +6,7 @@ namespace RouteManagement\Infrastructure\Persistence\Eloquent;
 
 use RouteManagement\Domain\Model\{RouteGeometry, RouteSnapshot, RouteStop};
 use RouteManagement\Domain\Model\ValueObject\{
-    GeometryFormat, GeometryType, RouteId, RouteSnapshotId, RouteStopId, SequenceOrder, StopId, VersionNumber
+    GeometryFormat, GeometryType, RouteGeometryId, RouteId, RouteSnapshotId, RouteStopId, SequenceOrder, StopId, VersionNumber
 };
 use RouteManagement\Domain\Repository\RouteSnapshotRepository;
 
@@ -16,6 +16,15 @@ final class EloquentRouteSnapshotRepository implements RouteSnapshotRepository
     {
         $model = EloquentRouteSnapshot::with(['stops', 'geometries'])->find($id->value);
         return $model ? $this->toDomain($model) : null;
+    }
+
+    public function findByRouteId(RouteId $routeId): array
+    {
+        $models = EloquentRouteSnapshot::with(['stops', 'geometries'])
+            ->where('route_id', $routeId->value)
+            ->get();
+            
+        return $models->map(fn($m) => $this->toDomain($m))->toArray();
     }
 
     public function findLatestPublished(RouteId $routeId): ?RouteSnapshot
@@ -97,7 +106,7 @@ final class EloquentRouteSnapshotRepository implements RouteSnapshotRepository
         ))->toArray();
 
         $geometries = $m->geometries->map(fn($g) => new RouteGeometry(
-            RouteId::fromString($g->id), // using RouteId as underlying type for geometry id is acceptable alias here based on the UUID creation in our entity
+            RouteGeometryId::fromString($g->id),
             RouteSnapshotId::fromString($m->id),
             GeometryType::from($g->geometry_type),
             GeometryFormat::from($g->format),
@@ -112,12 +121,12 @@ final class EloquentRouteSnapshotRepository implements RouteSnapshotRepository
             RouteSnapshotId::fromString($m->id),
             RouteId::fromString($m->route_id),
             new VersionNumber((int)$m->version_number),
+            $m->total_distance_m !== null ? (int)$m->total_distance_m : null,
+            $m->estimated_duration_s !== null ? (int)$m->estimated_duration_s : null,
             $m->valid_from?->toImmutable(),
             $m->valid_until?->toImmutable(),
             $m->published_at?->toImmutable(),
             $m->created_at->toImmutable(),
-            $m->total_distance_m !== null ? (float)$m->total_distance_m : null,
-            $m->estimated_duration_s !== null ? (int)$m->estimated_duration_s : null,
             $stops,
             $geometries
         );

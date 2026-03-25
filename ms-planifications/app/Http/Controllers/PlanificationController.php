@@ -10,7 +10,7 @@ use PlanificationManagement\Application\UseCase\Planification\CreatePlanificatio
 use PlanificationManagement\Application\UseCase\Planification\ActivatePlanification\{ActivatePlanificationCommand, ActivatePlanificationHandler};
 use PlanificationManagement\Application\UseCase\Planification\CancelPlanification\{CancelPlanificationCommand, CancelPlanificationHandler};
 
-final class PlanificationController extends Controller
+final class PlanificationController
 {
     public function store(Request $request, CreatePlanificationHandler $handler): JsonResponse
     {

@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 use RouteManagement\Application\UseCase\Route\CreateRoute\{CreateRouteCommand, CreateRouteHandler};
 use RouteManagement\Application\UseCase\Route\PublishRoute\{PublishRouteCommand, PublishRouteHandler};
 use RouteManagement\Application\UseCase\RouteSnapshot\GetRouteSchedules\{GetRouteSchedulesQuery, GetRouteSchedulesHandler};
+use RouteManagement\Application\UseCase\RouteSnapshot\GetRouteSnapshot\{GetRouteSnapshotQuery, GetRouteSnapshotHandler};
 
-final class RouteController extends Controller
+final class RouteController
 {
     public function store(Request $request, CreateRouteHandler $handler): JsonResponse
     {
@@ -49,6 +50,17 @@ final class RouteController extends Controller
         ]);
 
         $data = $handler->handle(new GetRouteSchedulesQuery($id, $validated['date'] ?? null));
+
+        return response()->json($data);
+    }
+
+    public function showSnapshot(string $id, GetRouteSnapshotHandler $handler): JsonResponse
+    {
+        $data = $handler->handle(new GetRouteSnapshotQuery($id));
+
+        if (!$data) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
 
         return response()->json($data);
     }

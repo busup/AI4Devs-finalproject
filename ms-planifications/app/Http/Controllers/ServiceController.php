@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use PlanificationManagement\Application\UseCase\Service\UpdateServiceStatus\{UpdateServiceStatusCommand, UpdateServiceStatusHandler};
 use PlanificationManagement\Application\UseCase\Service\AssignResources\{AssignResourcesCommand, AssignResourcesHandler};
 
-final class ServiceController extends Controller
+final class ServiceController
 {
     public function updateStatus(Request $request, string $id, UpdateServiceStatusHandler $handler): JsonResponse
     {

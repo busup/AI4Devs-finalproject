@@ -16,6 +16,12 @@ final class EloquentRouteRepository implements RouteRepository
         return $model ? $this->toDomain($model) : null;
     }
 
+    public function findAll(): array
+    {
+        $models = EloquentRoute::all();
+        return $models->map(fn($m) => $this->toDomain($m))->toArray();
+    }
+
     public function save(Route $route): void
     {
         EloquentRoute::updateOrCreate(
