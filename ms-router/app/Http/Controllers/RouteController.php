@@ -54,6 +54,12 @@ final class RouteController
         return response()->json($data);
     }
 
+    /** GET /api/v1/routes/{id} — mismo cuerpo que GET .../schedules (detalle + paradas + geometrías). */
+    public function show(Request $request, string $id, GetRouteSchedulesHandler $handler): JsonResponse
+    {
+        return $this->schedules($request, $id, $handler);
+    }
+
     public function showSnapshot(string $id, GetRouteSnapshotHandler $handler): JsonResponse
     {
         $data = $handler->handle(new GetRouteSnapshotQuery($id));

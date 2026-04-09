@@ -19,6 +19,22 @@ final class EloquentStopRepository implements StopRepository
         return $model ? $this->toDomain($model) : null;
     }
 
+    public function findByIds(array $ids): array
+    {
+        $ids = array_values(array_filter($ids));
+        if ($ids === []) {
+            return [];
+        }
+        $models = EloquentStop::whereIn('id', $ids)->get();
+        $out = [];
+        foreach ($models as $m) {
+            $stop = $this->toDomain($m);
+            $out[$stop->id()->value] = $stop;
+        }
+
+        return $out;
+    }
+
     public function findNearby(Coordinates $centre, float $radiusMeters): array
     {
         // Using MySQL ST_Distance_Sphere for precise calculation

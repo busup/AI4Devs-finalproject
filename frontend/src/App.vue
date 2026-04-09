@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+import { onMounted } from 'vue'
 
-const { t } = useI18n()
+import { syncThemeFromDocument } from '@/composables/useTheme'
+
+onMounted(() => {
+  syncThemeFromDocument()
+})
 </script>
 
 <template>
-  <div class="rs-app min-h-screen p-6 text-neutral-800">
-    <p class="text-lg font-medium">{{ t('app.placeholder') }}</p>
+  <div
+    class="rs-app min-h-screen bg-neutral-100 text-neutral-800 transition-colors duration-200 dark:bg-neutral-950 dark:text-neutral-100"
+  >
     <router-view />
   </div>
 </template>

@@ -1,0 +1,327 @@
+{
+  "import_tag": "bcn-import-2026-04",
+  "routes": {
+    "50341": "3c9f5805-c5dd-526d-9304-f0cdaee5d0ce",
+    "51064": "6488b407-08ec-58c0-90e3-5c235989336a",
+    "52187": "54b864cc-1235-5a3a-9182-fd536e9f1ec9",
+    "52991": "a7eee68b-f0bf-542f-9081-5b70ce1f0192",
+    "52993": "b7031d35-7243-54ad-9168-d73d63b5a0a5",
+    "57017": "cc4476b6-3874-5e2a-a137-a83c89afed59",
+    "57175": "7c6457b6-6264-5a3e-b247-5f9f8756d38a",
+    "57594": "67835dc3-2e39-5139-8ade-1bf3848f941c",
+    "59915": "28a2821b-7189-5fee-a786-67e2fcef7f1c",
+    "99240": "a2b05761-6796-54f0-b69e-915f2076e75f",
+    "108878": "4d547714-ca14-51e1-9527-e6deba0f39f2",
+    "129202": "9c303bbc-0e85-5f3e-9b20-4c91e7213278",
+    "129208": "30dd8ecf-a217-58e5-a103-bec662746a3b",
+    "132124": "e8e2a8ab-48f0-5147-8e0b-b4e0e15f744c"
+  },
+  "stops": {
+    "702956": "12913fe7-5622-5fea-8911-ffe91dc3916a",
+    "702957": "3b562ab3-b65c-5926-b29d-34205202bb0a",
+    "702958": "14cda2c0-34fe-5661-855e-3eca51a323b7",
+    "614932": "2aa0e286-611a-503f-8006-295db1aced53",
+    "614933": "796e7745-7eb6-5852-ae45-4158acf61a93",
+    "634183": "445ca627-95dd-5b44-b3e6-4b1dd4d72ab7",
+    "634184": "340fee72-12cd-59a1-b0a3-90c7f5f11422",
+    "634185": "c6979487-bfdc-51c1-91e4-4e27a0b68b64",
+    "634186": "c4a21afe-f833-56b1-a1e3-68240082e8e3",
+    "647610": "d14f9257-139f-578b-add6-07ae271d3ba9",
+    "647611": "d539bf1a-ba92-5689-8b14-cc79dc65c668",
+    "647621": "34cae3fb-0786-55e1-ac3f-2f86e0494334",
+    "647622": "a1219b57-64aa-5f42-a81e-4f61b3569ce2",
+    "700988": "ccc1f2f2-70e5-509a-8cce-fed6379b9311",
+    "700989": "8e637ea2-74cb-5895-9e8c-c706e1a0daf6",
+    "700990": "f7f5e5af-be85-5811-879a-2d2fe2bb3fe7",
+    "700991": "8695ffe5-9c11-5823-a89c-1ff35c289fe8",
+    "702965": "c4fc9b02-388b-5ee5-95a4-20452db90d70",
+    "702966": "4879b30b-8640-5c28-ba55-e77c9ce4a6b3",
+    "709208": "6227f2f1-830d-52e3-8f49-955532712a45",
+    "709209": "01c10ff8-b1c0-55fc-9050-2c58ad387002",
+    "740445": "13b5bbc7-fc92-5540-9437-8947663ff900",
+    "740446": "004b15ab-cf2b-5cfa-be23-8f9cf0705f64",
+    "740447": "420eeca3-c7aa-55f5-b875-0b11c67c54e7",
+    "740448": "c20c763d-1025-5b48-ac00-72c48e59fa0f",
+    "1106569": "9f7c0264-8636-58ed-9186-660edc4bb005",
+    "1106570": "c6c8a4b0-0b92-55ce-89e8-1fab91e93cc3",
+    "1106571": "0d28793a-cf1e-5523-b7bd-c653078873f4",
+    "1106572": "411ae1f7-a84f-53b1-b873-5d7ccb231693",
+    "1252457": "44aa867c-e4c7-5565-96bb-60a8fc99558c",
+    "1457664": "84346dc6-9832-5fbf-9e8f-693c2ef9652f",
+    "1549963": "28625012-ad71-5605-b2e9-2d599aafaa37",
+    "1549964": "af9667a8-780e-5e4c-b8fe-92972b6b8b36",
+    "1549982": "af3e9ae8-e512-537e-a970-08f958991686",
+    "1549983": "29d1d511-53be-5c95-83ea-30c62b6835c0",
+    "1550102": "13c5cb0f-e2ea-5700-918b-c1eaf3668de2",
+    "1550103": "df4aa27d-df97-5e72-a31b-ce262b399bb6",
+    "1550104": "44b67add-b2ce-5961-883b-c555ce68ab55",
+    "1550105": "71eb0354-783f-5062-8bb1-65fc62177b94",
+    "1550106": "dbf1e82d-fb79-5df4-a581-a093306f6682",
+    "1550107": "7ce6488b-f358-526c-a394-0c89ffe9834b",
+    "1594094": "b4f9b9cb-2dda-55bb-8bfa-164b2d474d36",
+    "1594095": "8463581f-f362-5f29-a6f9-129c0a630a04",
+    "1594096": "d12b51a4-5e1e-50ab-9bb0-33283d83c08c",
+    "1594097": "ddeb5247-63e7-567a-a531-f26d1a446405",
+    "1594098": "f025ba87-3260-5934-9b45-851894b08e26",
+    "1594099": "ee20b549-06b5-5024-a25e-67bb1576e843",
+    "1635503": "76732e27-8ed5-5e42-a3ca-c44bb973e7d5"
+  },
+  "snapshots": {
+    "50341": "e8224e54-8d58-5cc6-b078-3dd9c2a051d5",
+    "51064": "1f85708b-9744-52d7-8fcc-65bbf09bb14b",
+    "52187": "6c79ea21-8b50-5bca-963c-370c0583b5cb",
+    "52991": "d9bcd967-3f49-50e4-a36b-121d38f11655",
+    "52993": "3da69b87-3cb7-56c4-80f4-c6a0bf600c51",
+    "57017": "ef867ff2-20fc-5025-a256-79ab98efd335",
+    "57175": "104b6ff7-0083-5c52-9467-d816747f643a",
+    "57594": "8e3abeb3-283a-56f3-bb90-f830d791557a",
+    "59915": "f81b9f59-26c3-58e8-a8ce-d8a15f2147b8",
+    "99240": "6309cb50-d196-51c4-b835-16becf30b2b4",
+    "108878": "3762cc2f-d311-580b-8de5-d39b684a8eab",
+    "129202": "6bf2ea98-6a5d-54ab-941f-95b1ed144f08",
+    "129208": "69c1418b-0ed5-52c2-a7c5-fcfe71b802ee",
+    "132124": "8811cc7b-3f25-57b2-8c54-4bdf723b2087"
+  },
+  "route_stops": [
+    {
+      "legacy_route_id": 50341,
+      "legacy_stop_id": 702956,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 50341,
+      "legacy_stop_id": 702957,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 50341,
+      "legacy_stop_id": 702958,
+      "sequence": 3
+    },
+    {
+      "legacy_route_id": 51064,
+      "legacy_stop_id": 614932,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 51064,
+      "legacy_stop_id": 614933,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 52187,
+      "legacy_stop_id": 634183,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 52187,
+      "legacy_stop_id": 634184,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 52187,
+      "legacy_stop_id": 634185,
+      "sequence": 3
+    },
+    {
+      "legacy_route_id": 52187,
+      "legacy_stop_id": 634186,
+      "sequence": 4
+    },
+    {
+      "legacy_route_id": 52991,
+      "legacy_stop_id": 647610,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 52991,
+      "legacy_stop_id": 647611,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 52993,
+      "legacy_stop_id": 647621,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 52993,
+      "legacy_stop_id": 647622,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 57017,
+      "legacy_stop_id": 700988,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 57017,
+      "legacy_stop_id": 700989,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 57017,
+      "legacy_stop_id": 700990,
+      "sequence": 3
+    },
+    {
+      "legacy_route_id": 57017,
+      "legacy_stop_id": 700991,
+      "sequence": 4
+    },
+    {
+      "legacy_route_id": 57175,
+      "legacy_stop_id": 702965,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 57175,
+      "legacy_stop_id": 702966,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 57594,
+      "legacy_stop_id": 709208,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 57594,
+      "legacy_stop_id": 709209,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 59915,
+      "legacy_stop_id": 740445,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 59915,
+      "legacy_stop_id": 740446,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 59915,
+      "legacy_stop_id": 740447,
+      "sequence": 3
+    },
+    {
+      "legacy_route_id": 59915,
+      "legacy_stop_id": 740448,
+      "sequence": 4
+    },
+    {
+      "legacy_route_id": 99240,
+      "legacy_stop_id": 1106569,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 99240,
+      "legacy_stop_id": 1106570,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 99240,
+      "legacy_stop_id": 1106571,
+      "sequence": 3
+    },
+    {
+      "legacy_route_id": 99240,
+      "legacy_stop_id": 1106572,
+      "sequence": 4
+    },
+    {
+      "legacy_route_id": 108878,
+      "legacy_stop_id": 1252457,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 108878,
+      "legacy_stop_id": 1457664,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 129202,
+      "legacy_stop_id": 1549963,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 129202,
+      "legacy_stop_id": 1549964,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 129202,
+      "legacy_stop_id": 1549982,
+      "sequence": 3
+    },
+    {
+      "legacy_route_id": 129202,
+      "legacy_stop_id": 1549983,
+      "sequence": 4
+    },
+    {
+      "legacy_route_id": 129208,
+      "legacy_stop_id": 1550102,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 129208,
+      "legacy_stop_id": 1550103,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 129208,
+      "legacy_stop_id": 1550104,
+      "sequence": 3
+    },
+    {
+      "legacy_route_id": 129208,
+      "legacy_stop_id": 1550105,
+      "sequence": 4
+    },
+    {
+      "legacy_route_id": 129208,
+      "legacy_stop_id": 1550106,
+      "sequence": 5
+    },
+    {
+      "legacy_route_id": 129208,
+      "legacy_stop_id": 1550107,
+      "sequence": 6
+    },
+    {
+      "legacy_route_id": 132124,
+      "legacy_stop_id": 1594094,
+      "sequence": 1
+    },
+    {
+      "legacy_route_id": 132124,
+      "legacy_stop_id": 1594095,
+      "sequence": 2
+    },
+    {
+      "legacy_route_id": 132124,
+      "legacy_stop_id": 1594096,
+      "sequence": 3
+    },
+    {
+      "legacy_route_id": 132124,
+      "legacy_stop_id": 1594097,
+      "sequence": 4
+    },
+    {
+      "legacy_route_id": 132124,
+      "legacy_stop_id": 1594098,
+      "sequence": 5
+    },
+    {
+      "legacy_route_id": 132124,
+      "legacy_stop_id": 1594099,
+      "sequence": 6
+    },
+    {
+      "legacy_route_id": 132124,
+      "legacy_stop_id": 1635503,
+      "sequence": 7
+    }
+  ]
+}

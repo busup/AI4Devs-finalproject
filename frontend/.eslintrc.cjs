@@ -5,6 +5,9 @@ module.exports = {
     browser: true,
     es2022: true,
   },
+  globals: {
+    google: 'readonly',
+  },
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',

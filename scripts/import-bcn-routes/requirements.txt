@@ -1,0 +1,2 @@
+# Opcional: solo necesario para --apply en import_bcn_routes.py y rollback_bcn_import.py
+pymysql>=1.1.0

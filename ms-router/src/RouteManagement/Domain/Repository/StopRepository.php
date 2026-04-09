@@ -12,6 +12,12 @@ interface StopRepository
     public function findById(StopId $id): ?Stop;
 
     /**
+     * @param  string[]  $ids  UUID strings
+     * @return array<string, Stop> keyed by stop id
+     */
+    public function findByIds(array $ids): array;
+
+    /**
      * Find approved, non-deleted stops within a given radius.
      *
      * @param  Coordinates $coordinates  Centre point

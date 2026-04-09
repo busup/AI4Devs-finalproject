@@ -1,11 +1,13 @@
 import { apiClient } from './apiClient'
 import { minimalSearchRoutesResponse } from '@/mocks/minimalSearchResponse'
+import { MOCK_STOPS } from '@/mocks/stops'
 import type {
   BookingRecord,
   CreateBookingRequest,
   CurrentUserResponse,
+  RouteDetailResponse,
   RouteSchedulesParams,
-  RouteSchedulesResponse,
+  RouteTerminalStopsResponse,
   SearchRoutesRequest,
   SearchRoutesResponse,
   SiteConfigResponse,
@@ -32,21 +34,45 @@ export async function searchRoutes(
 }
 
 /**
- * GET /api/v1/routes/{routeId}/schedules
+ * GET /api/v1/stops/route-terminals — paradas finales (una por stop físico, etiqueta desde BD).
  */
-export async function getRouteSchedules(
+export async function getRouteTerminalStops(): Promise<RouteTerminalStopsResponse> {
+  if (useMock()) {
+    return {
+      stops: MOCK_STOPS.map((s) => ({ stopId: s.id, label: s.name })),
+    }
+  }
+  const { data } = await apiClient.get<RouteTerminalStopsResponse>('/stops/route-terminals')
+  return data
+}
+
+/**
+ * GET /api/v1/routes/{routeId}/schedules — detalle de ruta, paradas y geometrías (ms-router).
+ */
+export async function getRouteDetail(
   routeId: string | number,
   params?: RouteSchedulesParams,
-): Promise<RouteSchedulesResponse> {
+): Promise<RouteDetailResponse> {
   if (useMock()) {
-    return { schedules: [] }
+    return {
+      route_id: String(routeId),
+      name: '',
+      status: 'approved',
+      snapshot_id: '',
+      version: 1,
+      stops: [],
+      geometries: [],
+    }
   }
-  const { data } = await apiClient.get<RouteSchedulesResponse>(
+  const { data } = await apiClient.get<RouteDetailResponse>(
     `/routes/${routeId}/schedules`,
     { params },
   )
   return data
 }
+
+/** Alias histórico; la respuesta real es {@link RouteDetailResponse}. */
+export const getRouteSchedules = getRouteDetail
 
 /**
  * GET /api/v1/sites/{siteId}/config

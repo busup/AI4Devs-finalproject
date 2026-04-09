@@ -1,14 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import BlankOutlet from '@/components/system/BlankOutlet.vue'
+import SearchView from '@/views/SearchView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'root',
-      component: BlankOutlet,
+      name: 'search',
+      component: SearchView,
+    },
+    {
+      path: '/busqueda',
+      redirect: '/',
     },
   ],
 })

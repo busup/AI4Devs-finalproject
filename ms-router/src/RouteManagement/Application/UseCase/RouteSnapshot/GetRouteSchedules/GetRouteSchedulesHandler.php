@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace RouteManagement\Application\UseCase\RouteSnapshot\GetRouteSchedules;
 
 use RouteManagement\Domain\Model\ValueObject\RouteId;
-use RouteManagement\Domain\Repository\{RouteRepository, RouteSnapshotRepository};
+use RouteManagement\Domain\Repository\{RouteRepository, RouteSnapshotRepository, StopRepository};
 
 final readonly class GetRouteSchedulesHandler
 {
     public function __construct(
         private RouteRepository         $routes,
         private RouteSnapshotRepository $snapshots,
+        private StopRepository          $stops,
     ) {}
 
     public function handle(GetRouteSchedulesQuery $query): array
@@ -23,7 +24,7 @@ final readonly class GetRouteSchedulesHandler
         $snapshot = $this->snapshots->findLatestPublished($routeId)
             ?? throw new \DomainException("No published snapshot for route {$query->routeId}.");
 
-        $stops = array_map(
+        $stopRows = array_map(
             static fn($rs) => [
                 'stop_id'        => $rs->stopId()->value,
                 'sequence_order' => $rs->sequenceOrder()->value,
@@ -35,6 +36,21 @@ final readonly class GetRouteSchedulesHandler
             ],
             $snapshot->stops(),
         );
+
+        $stopIds = array_column($stopRows, 'stop_id');
+        $byId = $this->stops->findByIds($stopIds);
+        $stops = [];
+        foreach ($stopRows as $row) {
+            $sid = $row['stop_id'];
+            if (isset($byId[$sid])) {
+                $s = $byId[$sid];
+                $row['name'] = $s->name();
+                $row['address'] = $s->address();
+                $row['latitude'] = $s->location()->lat;
+                $row['longitude'] = $s->location()->lon;
+            }
+            $stops[] = $row;
+        }
 
         $geometries = array_map(
             static fn($rg) => [

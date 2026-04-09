@@ -1,5 +1,85 @@
 {
-  "app": {
-    "placeholder": "Route Searcher — estructura base (sin vistas de producto)"
+  "nav": {
+    "findRoutes": "Buscar rutas",
+    "myBookings": "Mis reservas",
+    "companyPass": "Pase empresa",
+    "themeSwitchToDark": "Activar modo oscuro",
+    "themeSwitchToLight": "Activar modo claro"
+  },
+  "search": {
+    "filter": {
+      "apply": "Filtrar",
+      "clear": "Limpiar filtros"
+    },
+    "trip": {
+      "outboundOnly": "Solo ida",
+      "returnOnly": "Solo vuelta",
+      "roundtrip": "Ida y vuelta"
+    },
+    "legs": {
+      "outbound": "Ida",
+      "return": "Vuelta"
+    },
+    "fields": {
+      "origin": "Origen",
+      "destination": "Destino",
+      "departureDate": "Fecha de salida",
+      "time": "Hora",
+      "timeOutbound": "Hora de ida",
+      "timeReturn": "Hora de vuelta",
+      "timePlaceholder": "Seleccionar horario",
+      "stopsLoading": "Cargando paradas…",
+      "stopsEmpty": "No hay paradas disponibles"
+    },
+    "date": {
+      "weekdaysShort": "Lun, Mar, Mié, Jue, Vie, Sáb, Dom",
+      "dialogAria": "Elegir fecha de salida",
+      "pickMonthYear": "Elegir mes y año"
+    },
+    "time": {
+      "hintExclusive": "Indica solo una restricción: salida o llegada.",
+      "afterDeparture": "Salida después de…",
+      "beforeArrival": "Llegada antes de…",
+      "clock": "Hora",
+      "tabDeparture": "Hora de salida",
+      "tabArrival": "Hora de llegada",
+      "dialogAria": "Elegir restricción de horario",
+      "apply": "Aplicar",
+      "clear": "Quitar"
+    },
+    "list": {
+      "titleOutbound": "Seleccionar ruta de ida",
+      "available": "disponibles",
+      "morningFilter": "Mañana",
+      "recommended": "Recomendada",
+      "departure": "Salida",
+      "arrival": "Llegada",
+      "selectRoute": "Seleccionar ruta",
+      "tapToSelect": "Pulsa para elegir",
+      "selectRouteHint": "Pulsa para seleccionar esta ruta",
+      "selected": "SELECCIONADA",
+      "itinerary": "Itinerario",
+      "itineraryToggle": "Mostrar u ocultar el itinerario de paradas",
+      "loading": "Cargando rutas…",
+      "retry": "Reintentar",
+      "empty": "No hay rutas en la base de datos para los filtros actuales, o el API devolvió una lista vacía.",
+      "emptyAfterFilter": "Ninguna ruta cumple los filtros elegidos. Prueba a cambiar parada, horario o modo de viaje.",
+      "emptyMock": "Tienes VITE_USE_MOCK_API=true: no se llama al backend y la respuesta mock es una lista vacía. Pon VITE_USE_MOCK_API=false y VITE_API_BASE_URL=http://localhost:8001/api/v1 (ms-router en marcha).",
+      "routeLineFallback": "Ruta",
+      "itineraryLoading": "Cargando paradas…",
+      "itineraryError": "No se pudieron cargar las paradas",
+      "noScheduleThisDay": "Sin horario para esta fecha"
+    },
+    "map": {
+      "searchPlaceholder": "Buscar en Google Maps",
+      "estimatedDuration": "Duración estimada",
+      "continueReturn": "Continuar a la vuelta",
+      "satellite": "Satélite",
+      "support": "Ayuda",
+      "walkOriginTitle": "Tu dirección (origen del trayecto)",
+      "walkToNearestStop": "Hasta la parada más cercana: {distance} (línea recta aprox.)",
+      "walkToNearestStopDirections": "Camino a pie a la parada: {distance} · ~{duration}",
+      "walkDirectionsFallback": "No se pudo calcular el recorrido por calles; se muestra distancia aproximada en línea recta"
+    }
   }
 }

@@ -1,0 +1,7 @@
+Skipped routes:
+59798: sin paradas válidas tras filtros
+59799: sin paradas válidas tras filtros
+59845: sin paradas válidas tras filtros
+
+Geometry warnings / sin polyline:
+(ninguno)
